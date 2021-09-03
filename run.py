@@ -2,10 +2,11 @@ from random import randint
 
 size = None
 LETTERS = [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I",
-"J", "K", "L", "M", "N", "O"]
+           "J", "K", "L", "M", "N", "O"]
 cpu_board = []
 player_board = []
-boards = cpu_board + player_board
+number_of_ships = 0
+
 
 def set_grid_size():
     print("Please set the grid size using 1 integer.")
@@ -37,6 +38,7 @@ def print_board(board):
     for i in board:
         print(" ".join(i))
 
+
 def print_boards():
     print("CPU")
     print_board(cpu_board)
@@ -45,7 +47,22 @@ def print_boards():
     print_board(player_board)
 
 
-# def computer_ships:
+def random_row(board):
+    return randint(1, len(board) - 1)
+
+
+def random_column(board):
+    return randint(1, len(board[0] - 1))
+
+
+def amount_of_ships():
+    global number_of_ships
+    if size < 7:
+        number_of_ships = 3
+    elif size < 9:
+        number_of_ships = 4
+    else:
+        number_of_ships = 5
 
 
 def main():
@@ -55,9 +72,6 @@ def main():
     set_grid_size()
     initialize_board(cpu_board)
     initialize_board(player_board)
-    # print_board(cpu_board)
-    # print(" ")
-    # print_board(player_board)
     print_boards()
 
 
