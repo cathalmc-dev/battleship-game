@@ -71,16 +71,56 @@ def amount_of_ships():
         number_of_ships = 5
 
 
-def create_ship():
+def create_cpu_ship():
     column = random_column(cpu_board)
     row = random_row(cpu_board)
     length = randint(2, 5)
     orientation = randint(0, 1)
     if orientation == 0:
+        print("hor")
         for i in range(length):
-            point = [(column + i)] + [row]
+            point = [column + i] + [row]
+            ship.append(point)
+    else:
+        print("vert")
+        for i in range(length):
+            point = [column] + [row + i]
             ship.append(point)
     print(ship)
+    valid = check_ship()
+    if valid:
+        return ship
+    else:
+        create_cpu_ship()
+
+
+def check_ship():
+    print(size)
+    for i in ship:
+        if i[0] > size:
+            valid = False
+            break
+        elif i[1] > size:
+            valid = False
+            break
+        elif i in ship1:
+            valid = False
+            break
+        elif i in ship2:
+            valid = False
+            break
+        elif i in ship3:
+            valid = False
+            break
+        elif i in ship4:
+            valid = False
+            break
+        elif i in ship5:
+            valid = False
+            break
+        else:
+            valid = True
+    return valid
 
 # def cpu_ships():
     
@@ -96,7 +136,7 @@ def main():
     # column = LETTERS[random_column(cpu_board)]
     # row = random_row(cpu_board)
     # print(column, row)
-    create_ship()
+    create_cpu_ship()
 
 
 print("Welcome to Battleships!")
