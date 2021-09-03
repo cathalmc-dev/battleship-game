@@ -24,12 +24,25 @@ def set_grid_size():
     print(f"You have entered {size}.")
 
 
+def initialize_board(board):
+    for i in range(size):
+        board.append(["0"] * size)
+
+
+def print_board(board):
+    for i in board:
+        print(" ".join(i))
+
 def main():
     """
     Run all program functions
     """
     set_grid_size()
-    print(size)
+    initialize_board(cpu_board)
+    initialize_board(player_board)
+    print_board(cpu_board)
+    print(" ")
+    print_board(player_board)
 
 
 print("Welcome to Battleships!")
