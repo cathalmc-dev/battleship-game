@@ -6,6 +6,12 @@ LETTERS = [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I",
 cpu_board = []
 player_board = []
 number_of_ships = 0
+ship = []
+ship1 = []
+ship2 = []
+ship3 = []
+ship4 = []
+ship5 = []
 
 
 def set_grid_size():
@@ -47,12 +53,12 @@ def print_boards():
     print_board(player_board)
 
 
+def random_column(board):
+    return randint(1, len(board[0]) - 1)
+
+
 def random_row(board):
     return randint(1, len(board) - 1)
-
-
-def random_column(board):
-    return randint(1, len(board[0] - 1))
 
 
 def amount_of_ships():
@@ -65,6 +71,20 @@ def amount_of_ships():
         number_of_ships = 5
 
 
+def create_ship():
+    column = random_column(cpu_board)
+    row = random_row(cpu_board)
+    length = randint(2, 5)
+    orientation = randint(0, 1)
+    if orientation == 0:
+        for i in range(length):
+            point = [(column + i)] + [row]
+            ship.append(point)
+    print(ship)
+
+# def cpu_ships():
+    
+
 def main():
     """
     Run all program functions
@@ -73,6 +93,10 @@ def main():
     initialize_board(cpu_board)
     initialize_board(player_board)
     print_boards()
+    # column = LETTERS[random_column(cpu_board)]
+    # row = random_row(cpu_board)
+    # print(column, row)
+    create_ship()
 
 
 print("Welcome to Battleships!")
