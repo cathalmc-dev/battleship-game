@@ -1,23 +1,16 @@
 from random import randint
 
 size = None
-LETTERS = [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I",
-           "J", "K", "L", "M", "N", "O"]
+LETTERS = [" ", "A", "B", "C", "D", "E"]
 cpu_board = []
 player_board = []
-number_of_ships = 0
 ship = []
-ship1 = []
-ship2 = []
-ship3 = []
-ship4 = []
-ship5 = []
 
 
 def set_grid_size():
     print("Please set the grid size using 1 integer.")
     print("The number of rows and columns will be equal.")
-    message = "Please enter an integer between 5 and 9: "
+    message = "Please enter an integer between 3 and 5: "
     global size
     # https://stackoverflow.com/questions/52439284/error-handling-that-prompt-the-user-to-enter-only-integer-greater-than-1
     valid = False
@@ -28,9 +21,9 @@ def set_grid_size():
         except ValueError:
             message = "Please enter integer values only: "
         else:
-            valid = 4 < size < 10
+            valid = 2 < size < 6
             if not valid:
-                message = "Enter an integer between 5 and 9: "
+                message = "Enter an integer between 3 and 5: "
     print(f"You have entered {size}.")
 
 
@@ -62,40 +55,29 @@ def random_row(board):
 
 
 def amount_of_ships():
-    global number_of_ships
-    if size < 7:
+    if size < 4:
         number_of_ships = 3
-    elif size < 9:
+    elif size < 5:
         number_of_ships = 4
     else:
         number_of_ships = 5
+    return number_of_ships
 
 
-def create_cpu_ship():
+def create_ship():
     column = random_column(cpu_board)
     row = random_row(cpu_board)
-    length = randint(2, 5)
-    orientation = randint(0, 1)
-    if orientation == 0:
-        print("hor")
-        for i in range(length):
-            point = [column + i] + [row]
-            ship.append(point)
-    else:
-        print("vert")
-        for i in range(length):
-            point = [column] + [row + i]
-            ship.append(point)
+    ship = [column] + [row]
     print(ship)
-    valid = check_ship()
-    if valid:
-        return ship
+    valid = ship_on_grid()
+    if not valid:
+        create_ship()
     else:
-        create_cpu_ship()
+        return ship
 
 
-def check_ship():
-    print(size)
+def ship_on_grid():
+    valid = True
     for i in ship:
         if i[0] > size:
             valid = False
@@ -103,27 +85,14 @@ def check_ship():
         elif i[1] > size:
             valid = False
             break
-        elif i in ship1:
-            valid = False
-            break
-        elif i in ship2:
-            valid = False
-            break
-        elif i in ship3:
-            valid = False
-            break
-        elif i in ship4:
-            valid = False
-            break
-        elif i in ship5:
-            valid = False
-            break
         else:
             valid = True
     return valid
 
-# def cpu_ships():
-    
+def create_cpu_ships():
+    ships = []
+    ships.append(create_ship() * amount_of_ships())
+    print(ships)
 
 def main():
     """
@@ -136,7 +105,7 @@ def main():
     # column = LETTERS[random_column(cpu_board)]
     # row = random_row(cpu_board)
     # print(column, row)
-    create_cpu_ship()
+    create_ship()
 
 
 print("Welcome to Battleships!")
